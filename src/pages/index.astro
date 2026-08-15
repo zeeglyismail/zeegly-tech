@@ -1,0 +1,211 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SmoothScroll from '../components/SmoothScroll.tsx';
+import Nav from '../components/Nav.tsx';
+import Hero from '../components/Hero.tsx';
+import Metrics from '../components/Metrics.tsx';
+import Timeline from '../components/Timeline.tsx';
+import Skills from '../components/Skills.tsx';
+import Projects from '../components/Projects.tsx';
+import Contact from '../components/Contact.tsx';
+import Reveal from '../components/Reveal.tsx';
+import { person, about, contact, certifications, education, site } from '../data/content';
+
+const year = new Date().getFullYear();
+---
+
+<Layout>
+  <SmoothScroll client:load />
+  <Nav client:load />
+
+  <main id="top">
+    <Hero client:load />
+    <Metrics client:visible />
+
+    <!-- ── About ─────────────────────────────────────────────── -->
+    <section id="about" class="scroll-mt-24 py-24 sm:py-32">
+      <div class="container-x">
+        <Reveal client:visible>
+          <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--color-accent)]">
+            01 — {about.title}
+          </p>
+        </Reveal>
+
+        <div class="mt-8 grid gap-12 lg:grid-cols-[1.25fr_0.75fr]">
+          <div class="space-y-5">
+            {
+              about.paragraphs.map((p, i) => (
+                <Reveal client:visible delay={i * 0.08}>
+                  <p class="text-[1.02rem] leading-relaxed text-[var(--color-muted)]">{p}</p>
+                </Reveal>
+              ))
+            }
+          </div>
+
+          <Reveal client:visible from="left">
+            <dl class="card divide-y divide-[var(--color-line)] overflow-hidden">
+              {
+                about.facts.map((f) => (
+                  <div class="flex flex-col gap-1 p-4">
+                    <dt class="font-mono text-[0.64rem] uppercase tracking-[0.14em] text-[var(--color-dim)]">
+                      {f.k}
+                    </dt>
+                    <dd class="text-[0.88rem] text-[var(--color-fg)]">{f.v}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Experience ────────────────────────────────────────── -->
+    <section id="experience" class="scroll-mt-24 border-t border-[var(--color-line)] py-24 sm:py-32">
+      <div class="container-x">
+        <Reveal client:visible>
+          <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--color-accent)]">
+            02 — Experience
+          </p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Where I've been building
+          </h2>
+        </Reveal>
+        <div class="mt-14">
+          <Timeline client:visible />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Skills ────────────────────────────────────────────── -->
+    <section id="skills" class="scroll-mt-24 border-t border-[var(--color-line)] py-24 sm:py-32">
+      <div class="container-x">
+        <Reveal client:visible>
+          <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--color-accent)]">
+            03 — Skills
+          </p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            The toolkit
+          </h2>
+        </Reveal>
+        <div class="mt-12">
+          <Skills client:visible />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Work ──────────────────────────────────────────────── -->
+    <section id="work" class="scroll-mt-24 border-t border-[var(--color-line)] py-24 sm:py-32">
+      <div class="container-x">
+        <Reveal client:visible>
+          <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--color-accent)]">
+            04 — Selected work
+          </p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Things I've built
+          </h2>
+        </Reveal>
+        <div class="mt-12">
+          <Projects client:visible />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Education & Certifications ────────────────────────── -->
+    <section class="border-t border-[var(--color-line)] py-24 sm:py-32">
+      <div class="container-x grid gap-12 lg:grid-cols-2">
+        <div>
+          <Reveal client:visible>
+            <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--color-accent)]">
+              05 — Education
+            </p>
+          </Reveal>
+          <div class="mt-7 space-y-3">
+            {
+              education.map((e, i) => (
+                <Reveal client:visible delay={i * 0.08}>
+                  <div class="card p-4">
+                    <div class="flex items-start justify-between gap-4">
+                      <h3 class="text-[0.95rem] font-semibold">{e.degree}</h3>
+                      <span class="shrink-0 font-mono text-[0.7rem] text-[var(--color-dim)]">
+                        {e.year}
+                      </span>
+                    </div>
+                    <p class="mt-1 text-[0.82rem] text-[var(--color-muted)]">
+                      {e.school} · {e.grade}
+                    </p>
+                  </div>
+                </Reveal>
+              ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <Reveal client:visible>
+            <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--color-accent)]">
+              06 — Certifications
+            </p>
+          </Reveal>
+          <ul class="mt-7 space-y-2.5">
+            {
+              certifications.map((c, i) => (
+                <Reveal client:visible delay={i * 0.05}>
+                  <li class="flex gap-3 text-[0.86rem] leading-relaxed text-[var(--color-muted)]">
+                    <span class="mt-[0.45rem] h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]" />
+                    {c}
+                  </li>
+                </Reveal>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contact ───────────────────────────────────────────── -->
+    <section id="contact" class="scroll-mt-24 border-t border-[var(--color-line)] py-24 sm:py-32">
+      <div class="container-x">
+        <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <Reveal client:visible>
+            <p class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--color-accent)]">
+              07 — Contact
+            </p>
+            <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
+              {contact.title}
+            </h2>
+            <p class="mt-4 max-w-md leading-relaxed text-[var(--color-muted)]">
+              {contact.blurb}
+            </p>
+            <a
+              href={person.cv}
+              download
+              class="mt-7 inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-5 py-2.5 text-sm font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-accent-2)]"
+            >
+              Download CV
+              <span>↓</span>
+            </a>
+          </Reveal>
+
+          <div class="lg:pt-14">
+            <Contact client:visible />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Footer ────────────────────────────────────────────── -->
+    <footer class="border-t border-[var(--color-line)] py-9">
+      <div
+        class="container-x flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left"
+      >
+        <p class="font-mono text-[0.72rem] text-[var(--color-dim)]">
+          © {year} {person.name} · {site.domain}
+        </p>
+        <p class="font-mono text-[0.72rem] text-[var(--color-dim)]">
+          Astro · Tailwind · Docker · Cloudflare Tunnel
+        </p>
+      </div>
+    </footer>
+  </main>
+</Layout>

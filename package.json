@@ -1,0 +1,26 @@
+{
+  "name": "zeegly-tech",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Personal portfolio — Md. Ismail Hossain, DevOps Engineer",
+  "scripts": {
+    "dev": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro preview --host",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.2.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^5.2.0",
+    "framer-motion": "^11.15.0",
+    "lenis": "^1.1.18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5"
+  }
+}

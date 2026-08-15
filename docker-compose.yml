@@ -1,0 +1,53 @@
+services:
+  # ── The portfolio site ────────────────────────────────────────
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: zeegly-tech:latest
+    container_name: zeegly-web
+    restart: unless-stopped
+    # Published on the host so an existing cloudflared (running as a
+    # service outside compose) can reach it at http://localhost:8080.
+    # Using the bundled tunnel below instead? This can be removed.
+    ports:
+      - "8080:80"
+    networks:
+      - zeegly
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ── Optional: run the Cloudflare tunnel alongside the site ─────
+  # Enable with:  docker compose --profile tunnel up -d
+  # Requires TUNNEL_TOKEN in a .env file (see .env.example).
+  # With this running, point the tunnel's public hostname at
+  # http://web:80  — no host port needed.
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: zeegly-tunnel
+    restart: unless-stopped
+    profiles: ["tunnel"]
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN:-}
+    depends_on:
+      web:
+        condition: service_healthy
+    networks:
+      - zeegly
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  zeegly:
+    driver: bridge

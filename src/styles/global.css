@@ -1,0 +1,118 @@
+@import 'tailwindcss';
+
+/* ── Design tokens ─────────────────────────────────────────────── */
+@theme {
+  --color-ink: #05070a;
+  --color-ink-2: #0a0e14;
+  --color-surface: #10151d;
+  --color-surface-2: #161d27;
+  --color-line: #1e2733;
+  --color-line-2: #2a3644;
+  --color-fg: #e6edf5;
+  --color-muted: #8b9aad;
+  --color-dim: #5d6b7d;
+  --color-accent: #2dd4bf;
+  --color-accent-2: #22d3ee;
+  --color-accent-dim: #0f766e;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Code', monospace;
+}
+
+/* ── Base ──────────────────────────────────────────────────────── */
+html {
+  background-color: var(--color-ink);
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Lenis drives scrolling; native smooth-scroll would fight it. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line-2);
+  border-radius: 999px;
+  border: 2px solid var(--color-ink);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-dim);
+}
+
+/* ── Utilities ─────────────────────────────────────────────────── */
+.container-x {
+  width: 100%;
+  max-width: 74rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* Faint blueprint grid used behind the hero */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(45, 212, 191, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(45, 212, 191, 0.055) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.glow {
+  background: radial-gradient(
+    600px circle at var(--x, 50%) var(--y, 0%),
+    rgba(45, 212, 191, 0.09),
+    transparent 65%
+  );
+}
+
+.text-gradient {
+  background: linear-gradient(120deg, var(--color-fg) 20%, var(--color-accent) 55%, var(--color-accent-2) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(22, 29, 39, 0.9), rgba(16, 21, 29, 0.75));
+  border: 1px solid var(--color-line);
+  border-radius: 0.9rem;
+}
+
+.hairline {
+  border-color: var(--color-line);
+}
+
+/* ── Motion safety ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
