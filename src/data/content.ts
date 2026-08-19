@@ -125,6 +125,7 @@ export const timeline = [
           'Eliminated an Elasticsearch mapping explosion — 7,611 fields down to ~25 — removing multi-minute Kibana load times.',
           'Migrated a live 2.6M-document index to date-based indexing with zero downtime via an atomic alias swap.',
           'Built SigNoz + OpenTelemetry observability on k3s and authored 3 custom Python Prometheus exporters.',
+          'Built agentless per-hop lag monitoring for a 42-node live-streaming CDN (21 origins, 4 up-PoPs, 17 edge PoPs) — probing LL-HLS playlists as a viewer would, with nothing installed on any CDN node.',
         ],
       },
       {
@@ -190,6 +191,10 @@ export const skills = [
     title: 'Storage & Messaging',
     items: ['Ceph', 'MinIO (S3)', 'NFS', 'LVM / ZFS', 'Kafka', 'RabbitMQ'],
   },
+  {
+    title: 'Media & Streaming',
+    items: ['OpenResty / NGINX-RTMP', 'OvenMediaEngine', 'LL-HLS', 'Multi-tier CDN', 'Stream telemetry'],
+  },
 ];
 
 export const projects = [
@@ -206,6 +211,13 @@ export const projects = [
     blurb:
       'An ingest-time classification pipeline that collapsed 346,155 raw log documents into 378 distinct patterns at 99.9% coverage — delivering Platinum-tier pattern analytics on a Basic licence, with hash-based novelty alerting for new error types.',
     stack: ['Elasticsearch', 'Drain3', 'Kibana', 'ElastAlert2'],
+  },
+  {
+    name: 'Live-Streaming CDN Lag Monitoring',
+    tag: 'Observability · Video',
+    blurb:
+      'Agentless per-hop delivery-lag monitoring across a 42-node streaming CDN — 21 OvenMediaEngine origins, 4 up-PoPs and 17 edge PoPs. A dependency-free Python exporter probes LL-HLS playlists exactly as a viewer would and auto-discovers live streams via API, so it answers "which tier is behind, and by how much" with nothing installed on any CDN node.',
+    stack: ['OvenMediaEngine', 'OpenResty', 'LL-HLS', 'Prometheus', 'Grafana'],
   },
   {
     name: 'Redis HA & Failover',
